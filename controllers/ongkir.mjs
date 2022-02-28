@@ -77,6 +77,8 @@ const logicCostEstimate = (jarak, qty) => {
     cost = jarak * 6000;
   } else if (jarak > 50 && jarak <= 100) {
     cost = jarak * 6500;
+  }else{
+    cost = jarak * 7000;
   }
 
   if (qty < 100 && qty >= 50) {
