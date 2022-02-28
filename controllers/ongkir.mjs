@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const constShipingEstimation = async (req, res) => {
-  let {cabang, tujuan, qty} = req.body;
+  let { cabang, tujuan, qty } = req.body;
   let detailTujuan = null;
 
   const optiogoogleMapsGeocodingnsOpt = {
@@ -71,14 +71,18 @@ export const constShipingEstimation = async (req, res) => {
 const logicCostEstimate = (jarak, qty) => {
   let cost = 0;
 
-  if (jarak > 3) {
+  if (jarak > 3 && jarak <= 15) {
     cost = jarak * 5000;
+  } else if (jarak > 15 && jarak <= 50) {
+    cost = jarak * 6000;
+  } else if (jarak > 50 && jarak <= 100) {
+    cost = jarak * 6500;
   }
 
   if (qty < 100 && qty >= 50) {
-    cost = cost - cost * 0.05;
+    cost = cost - cost * 0.07;
   } else if (qty >= 100) {
-    cost = cost - cost * 0.1;
+    cost = cost - cost * 0.15;
   }
 
   return cost;
