@@ -10,11 +10,19 @@ export const getProducts = async (req, res) => {
 };
 
 export const addProduct = async (req, res) => {
-  const product = new Products(req.body);
+  const product = Products.findOne({ nama: req.body.nama });
+  if (product) {
+    return res.status(400).json({ message: "Nama Produk Sudah Ada" });
+  }
+  const newProduct = new Products({
+    nama: req.body.nama,
+    harga: req.body.harga,
+    updatedAt: new Date(),
+  });
   try {
-    await product.save();
+    await newProduct.save();
     res.status(201).json({
-      message: "Product added successfully",
+      message: "Produk Berhasil Ditambahkan",
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -39,7 +47,7 @@ export const updateProduct = async (req, res) => {
       harga,
       updatedAt: new Date(),
     });
-    res.status(200).json({ message: "Product updated" });
+    res.status(200).json({ message: "Produk Berhasil Di Update" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -48,19 +56,8 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   try {
     await Products.findByIdAndDelete(req.params.id);
-    res.status(200).json({ message: "Product deleted" });
+    res.status(200).json({ message: "Produk Berhasil Di Hapus" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
-export const searchProduct = async (req, res) => {
-  try {
-    const product = await Products.find({
-      $text: { $search: req.params.nama },
-    });
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-}

@@ -15,7 +15,7 @@ try {
   db.on("error", console.error.bind(console, "connection error:"));
   db.once("open", function () {
     console.log("Connected to DB");
-  })
+  });
 } catch (error) {
   console.log(error);
 }
@@ -27,8 +27,12 @@ app.get("/", (req, res) => {
   res.send("Hello, welcome to my api !");
 });
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://kerajaan-keramik.netlify.app",
+  })
+);
 app.use(express.json());
-app.use(router)
+app.use(router);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

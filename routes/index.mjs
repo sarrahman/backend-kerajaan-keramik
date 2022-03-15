@@ -4,7 +4,6 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
-  searchProduct,
 } from "../controllers/products.mjs";
 import { getUsers, createUser, loginUser } from "../controllers/users.mjs";
 import { constShipingEstimation } from "../controllers/ongkir.mjs";
@@ -17,7 +16,6 @@ router.post("/api/v1/product", addProduct);
 router.get("/api/v1/product/:id", getProductById);
 router.patch("/api/v1/product/:id", updateProduct);
 router.delete("/api/v1/product/:id", deleteProduct);
-router.get("/api/v1/products/:nama", searchProduct);
 
 // users routes
 router.get("/api/v1/users", getUsers);

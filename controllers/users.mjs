@@ -14,14 +14,14 @@ export const createUser = async (req, res) => {
   try {
     const { username, password, confirmPassword } = req.body;
     if (!username || !password) {
-      return res.status(400).json({ message: "Please fill all the fields" });
+      return res.status(400).json({ message: "Lengkapi Semua Inputan" });
     }
     const user = await Users.findOne({ username });
     if (user) {
-      return res.status(400).json({ message: "username already exists" });
+      return res.status(400).json({ message: "Username Sudah Ada" });
     }
     if (password !== confirmPassword) {
-      return res.status(400).json({ message: "passwords do not match" });
+      return res.status(400).json({ message: "Password Tidak Cocok" });
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -32,7 +32,7 @@ export const createUser = async (req, res) => {
     });
     await newUser.save();
     res.status(200).json({
-      message: "User created successfully",
+      message: "Akun Berhasil Dibuat",
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -43,20 +43,20 @@ export const loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
-      return res.status(400).json({ message: "Please fill all the fields" });
+      return res.status(400).json({ message: "Lengkapi Semua Inputan" });
     }
     const user = await Users.findOne({
       username,
     });
     if (!user) {
-      return res.status(400).json({ message: "Username not found" });
+      return res.status(400).json({ message: "Username Tidak Ditemukan" });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Wrong password" });
+      return res.status(400).json({ message: "Password Salah" });
     }
     res.status(200).json({
-      message: "User logged in successfully",
+      message: "User Berhasil Masuk",
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
