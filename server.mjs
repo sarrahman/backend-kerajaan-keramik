@@ -27,11 +27,7 @@ app.get("/", (req, res) => {
   res.send("Hello, welcome to my api !");
 });
 
-app.use(
-  cors({
-    origin: "https://kerajaan-keramik.netlify.app",
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(router);
 
