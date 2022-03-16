@@ -12,7 +12,7 @@ export const getProducts = async (req, res) => {
 export const addProduct = async (req, res) => {
   const product = await Products.findOne({ nama: req.body.nama });
   if (product) {
-    return res.status(400).json({ message: "Product already exists" });
+    return res.status(400).json({ message: "Produk Sudah Ada" });
   }
   const newProduct = new Products({
     nama: req.body.nama,
@@ -41,14 +41,15 @@ export const getProductById = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const { nama, harga } = req.body;
+  const { nama, harga, isPromo } = req.body;
   try {
-    await Products.findByIdAndUpdate(req.params.id, {
+    await Products.findByIdAndUpdate(id, {
       nama,
       harga,
+      isPromo,
       updatedAt: new Date(),
     });
-    res.status(200).json({ message: "Produk Berhasil Di Update" });
+    res.status(201).json({ message: "Produk Berhasil Di Update" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
