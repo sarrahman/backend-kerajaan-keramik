@@ -9,6 +9,11 @@ const Products = mongoose.Schema({
         type: Number,
         required: true
     },
+    isPromo: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     updatedAt: {
         type: Date,
         default: Date.now

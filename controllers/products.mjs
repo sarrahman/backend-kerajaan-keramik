@@ -10,13 +10,14 @@ export const getProducts = async (req, res) => {
 };
 
 export const addProduct = async (req, res) => {
-  const product = Products.findOne({ nama: req.body.nama });
+  const product = await Products.findOne({ nama: req.body.nama });
   if (product) {
-    return res.status(400).json({ message: "Nama Produk Sudah Ada" });
+    return res.status(400).json({ message: "Product already exists" });
   }
   const newProduct = new Products({
     nama: req.body.nama,
     harga: req.body.harga,
+    isPromo: req.body.isPromo,
     updatedAt: new Date(),
   });
   try {
