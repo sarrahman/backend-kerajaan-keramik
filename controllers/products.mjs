@@ -10,14 +10,18 @@ export const getProducts = async (req, res) => {
 };
 
 export const addProduct = async (req, res) => {
+  const {nama, harga, isPromo} = req.body;
   const product = await Products.findOne({ nama: req.body.nama });
   if (product) {
     return res.status(400).json({ message: "Produk Sudah Ada" });
   }
+  if(!nama || !harga || !isPromo){
+    return res.status(400).json({ message: "Semua Field Harus Diisi" });
+  }
   const newProduct = new Products({
-    nama: req.body.nama,
-    harga: req.body.harga,
-    isPromo: req.body.isPromo,
+    nama,
+    harga,
+    isPromo,
     updatedAt: new Date(),
   });
   try {
