@@ -15,9 +15,6 @@ export const addProduct = async (req, res) => {
   if (product) {
     return res.status(400).json({ message: "Produk Sudah Ada" });
   }
-  if(!nama || !harga){
-    return res.status(400).json({ message: "Semua Field Harus Diisi" });
-  }
   const newProduct = new Products({
     nama,
     harga,
