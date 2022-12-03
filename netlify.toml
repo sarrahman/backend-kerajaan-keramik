@@ -1,4 +1,2 @@
-[[redirects]]
-  from = "/*"
-  to = "/server.mjs"
-  status = 200
+[build]
+  command = "npm run start"
