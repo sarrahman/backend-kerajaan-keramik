@@ -1,4 +1,4 @@
 [[redirects]]
   from = "/*"
-  to = "/index.js"
+  to = "/server.mjs"
   status = 200
